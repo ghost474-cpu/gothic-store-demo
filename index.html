@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gothic Sanctuary | Online Store</title>
+    <!-- Gothic & Elegant Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cinzel+Decorative:wght@700&family=Faustina:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <script src="server.js" defer></script>
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="header">
+        <div class="container header-container">
+            <h1 class="logo">𝕲𝖔𝖙𝖍𝖎𝖈 𝕾𝖆𝖓𝖈𝖙𝖚𝖆𝖗𝖞</h1>
+            <div class="cart-icon-btn" onclick="toggleCart()">
+                🦇 Cart (<span id="cart-count">0</span>)
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content: Products Grid -->
+    <main class="container main-content">
+        <h2 class="section-title">Curated Relics</h2>
+        <div class="products-grid">
+
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-image-placeholder">🍷</div>
+                <h3 class="product-title">Crystal Bat Pendant</h3>
+                <p class="product-description">Antique silver pendant encrusted with dark crystals reflecting the night's mysteries.</p>
+                <div class="product-bottom">
+                    <span class="product-price">$25.00</span>
+                    <button class="btn btn-primary" onclick="addToCart('Crystal Bat Pendant', 25.00)">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-image-placeholder">🕯️</div>
+                <h3 class="product-title">Black Velvet Cloak</h3>
+                <p class="product-description">A luxurious cloak trimmed with shadow lace for a majestic gothic appearance.</p>
+                <div class="product-bottom">
+                    <span class="product-price">$40.00</span>
+                    <button class="btn btn-primary" onclick="addToCart('Black Velvet Cloak', 40.00)">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <div class="product-image-placeholder">🔮</div>
+                <h3 class="product-title">Vintage Alexandrite Ring</h3>
+                <p class="product-description">Intricately designed ring featuring a color-shifting stone that changes with light.</p>
+                <div class="product-bottom">
+                    <span class="product-price">$18.00</span>
+                    <button class="btn btn-primary" onclick="addToCart('Vintage Alexandrite Ring', 18.00)">Add to Cart</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Cart Sidebar & Order Form -->
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h3>Shopping Cart</h3>
+                <button class="close-btn" onclick="toggleCart()">&times;</button>
+            </div>
+
+            <!-- Cart Items -->
+            <div class="cart-items" id="cart-items">
+                <p class="empty-cart-msg">Your cart is currently empty in the dark shadows.</p>
+            </div>
+
+            <div class="cart-total">
+                <span>Total:</span>
+                <strong id="total-price">$0.00</strong>
+            </div>
+
+            <!-- Customer Details Form -->
+            <form class="checkout-form" id="checkout-form" onsubmit="sendOrderEmail(event)">
+                <h4>Delivery Information</h4>
+                <input type="text" id="customer-name" placeholder="Full Name" required>
+                <input type="tel" id="customer-phone" placeholder="Phone Number" required>
+                <input type="text" id="customer-address" placeholder="Address & City" required>
+                <button type="submit" id="submit-btn" class="btn btn-primary">Send Order via Email ✉️</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript for UI interactions -->
+    <script>
+        function toggleCart() {
+            document.getElementById('cart-modal').classList.toggle('active');
+        }
+    </script>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <h3>𝕲𝖔𝖙𝖍𝖎𝖈 𝕾𝖆𝖓𝖈𝖙𝖚𝖆𝖗𝖞</h3>
+                <p>Your unique sanctuary for acquiring elegant, high-quality dark gothic relics.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Products</a></li>
+                    <li><a href="#" onclick="toggleCart(); return false;">Shopping Cart</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p>Questions about our collection or delivery?</p>
+                <p>💬 Reach us on WhatsApp</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 Gothic Sanctuary. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
