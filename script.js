@@ -17,7 +17,6 @@ function generateUniqueOrderId() {
 
 // 2. Add Item to Cart dynamically from HTML Card / Google Sheets Data
 function addToCart(buttonElement) {
-  // العثور على بطاقة المنتج القريبة من الزر الضغوط عليه
   const productCard = buttonElement.closest('.product-card') || buttonElement.parentElement;
   
   if (!productCard) {
@@ -25,15 +24,14 @@ function addToCart(buttonElement) {
     return;
   }
 
-  // 1. جلب اسم المنتج من البطاقة (أو من data-title إذا وجد)
+  // جلب اسم المنتج
   const titleElement = productCard.querySelector('.product-title, h3, h2, .title');
   const title = productCard.getAttribute('data-title') || (titleElement ? titleElement.innerText.trim() : 'Unknown Product');
 
-  // 2. جلب السعر من البطاقة (أو من data-price) واستخراج الأرقام فقط
+  // جلب السعر واستخراج الأرقام فقط
   const priceElement = productCard.querySelector('.price, .product-price, .cost');
   let rawPrice = productCard.getAttribute('data-price') || (priceElement ? priceElement.innerText : '0');
   
-  // تنظيف النص للحصول على الرقم فقط (مثلاً "2,500 DA" تحول إلى 2500)
   const price = parseFloat(rawPrice.replace(/[^0-9.]/g, '')) || 0;
 
   // إضافة المنتج للسلة
@@ -118,29 +116,30 @@ function sendOrderEmail(event) {
 
   let itemsList = '';
   cart.forEach((item, i) => {
-    itemsList += `${i + 1}. *${item.title}* — x${item.quantity} (${(item.price * item.quantity).toFixed(2)} DA)\n`;
+    itemsList += `${i + 1}. ${item.title} — x${item.quantity} (${(item.price * item.quantity).toFixed(2)} DA)\n`;
   });
 
   const telegramMessage = 
-`🍷 *NEW GOTHIC ORDER RECEIVED* 🍷
-━━━━━━━━━━━━━━━━━━━━
-🆔 *Order ID:* \`${orderId}\`
+`🍷 NEW GOTHIC ORDER RECEIVED 🍷
+------------------------------------
+🆔 Order ID: ${orderId}
 
-👤 *Customer Details:*
-• *Name:* ${customerName}
-• *Phone:* \`${customerPhone}\`
-• *Address:* ${customerAddress}
+👤 Customer Details:
+• Name: ${customerName}
+• Phone: ${customerPhone}
+• Address: ${customerAddress}
 
-🛍️ *Order Items:*
+🛍️ Order Items:
 ${itemsList}
-💰 *Total Amount:* *${totalPrice}*
-━━━━━━━━━━━━━━━━━━━━
-⏰ *Time:* ${new Date().toLocaleString()}`;
+💰 Total Amount: ${totalPrice}
+------------------------------------
+⏰ Time: ${new Date().toLocaleString()}`;
 
+  // الإرسال مع مطابقة اسم المفتاح للـ Netlify Function
   fetch('/.netlify/functions/send-order', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message: telegramMessage })
+    body: JSON.stringify({ telegramMessage: telegramMessage })
   })
   .then(response => response.json())
   .then(data => {
