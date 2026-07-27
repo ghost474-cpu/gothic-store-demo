@@ -2,33 +2,48 @@
 // Gothic E-Commerce Store - Main Script
 // ==========================================
 
-// Cart State
 let cart = [];
 
-// 1. Generate Unique 7-Character Order ID (No repetition guaranteed)
+// 1. Generate Unique 7-Character Order ID
 function generateUniqueOrderId() {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   let randomPart = '';
-  
-  // 4 random characters
   for (let i = 0; i < 4; i++) {
     randomPart += chars.charAt(Math.floor(Math.random() * chars.length));
   }
-  
-  // 3 characters based on current millisecond timestamp
   const timePart = Date.now().toString(36).slice(-3).toUpperCase();
-  
-  return `#${randomPart}${timePart}`; // Example: #A9K2X8L
+  return `#${randomPart}${timePart}`;
 }
 
-// 2. Add Item to Cart
-function addToCart(title, price) {
+// 2. Add Item to Cart dynamically from HTML Card / Google Sheets Data
+function addToCart(buttonElement) {
+  // العثور على بطاقة المنتج القريبة من الزر الضغوط عليه
+  const productCard = buttonElement.closest('.product-card') || buttonElement.parentElement;
+  
+  if (!productCard) {
+    console.error("Product card not found!");
+    return;
+  }
+
+  // 1. جلب اسم المنتج من البطاقة (أو من data-title إذا وجد)
+  const titleElement = productCard.querySelector('.product-title, h3, h2, .title');
+  const title = productCard.getAttribute('data-title') || (titleElement ? titleElement.innerText.trim() : 'Unknown Product');
+
+  // 2. جلب السعر من البطاقة (أو من data-price) واستخراج الأرقام فقط
+  const priceElement = productCard.querySelector('.price, .product-price, .cost');
+  let rawPrice = productCard.getAttribute('data-price') || (priceElement ? priceElement.innerText : '0');
+  
+  // تنظيف النص للحصول على الرقم فقط (مثلاً "2,500 DA" تحول إلى 2500)
+  const price = parseFloat(rawPrice.replace(/[^0-9.]/g, '')) || 0;
+
+  // إضافة المنتج للسلة
   const existingItem = cart.find(item => item.title === title);
   if (existingItem) {
     existingItem.quantity += 1;
   } else {
     cart.push({ title, price, quantity: 1 });
   }
+  
   updateCartUI();
 }
 
@@ -43,7 +58,7 @@ function updateCartUI() {
   if (cart.length === 0) {
     cartItemsContainer.innerHTML = '<p class="empty-cart-msg">Your cart is currently empty in the dark shadows.</p>';
     cartCount.innerText = '0';
-    totalPriceElement.innerText = '$0.00';
+    totalPriceElement.innerText = '0.00 DA';
     return;
   }
 
@@ -61,7 +76,7 @@ function updateCartUI() {
     itemElement.innerHTML = `
       <div>
         <strong style="color: #e0dcd3;">${item.title}</strong> x${item.quantity}
-        <br><small style="color: #c5a059;">$${(item.price * item.quantity).toFixed(2)}</small>
+        <br><small style="color: #c5a059;">${(item.price * item.quantity).toFixed(2)} DA</small>
       </div>
       <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #8b0000; cursor: pointer; font-size: 0.9rem; font-weight: bold;">✕</button>
     `;
@@ -69,7 +84,7 @@ function updateCartUI() {
   });
 
   cartCount.innerText = totalItemsCount;
-  totalPriceElement.innerText = `$${total.toFixed(2)}`;
+  totalPriceElement.innerText = `${total.toFixed(2)} DA`;
 }
 
 // 4. Remove Item from Cart
@@ -95,22 +110,17 @@ function sendOrderEmail(event) {
     submitBtn.disabled = true;
   }
 
-  // Generate unique order ID
   const orderId = generateUniqueOrderId();
-
-  // Get customer input
   const customerName = document.getElementById('customer-name').value;
   const customerPhone = document.getElementById('customer-phone').value;
   const customerAddress = document.getElementById('customer-address').value;
   const totalPrice = document.getElementById('total-price').innerText;
 
-  // Format product list
   let itemsList = '';
   cart.forEach((item, i) => {
-    itemsList += `${i + 1}. *${item.title}* — x${item.quantity} ($${(item.price * item.quantity).toFixed(2)})\n`;
+    itemsList += `${i + 1}. *${item.title}* — x${item.quantity} (${(item.price * item.quantity).toFixed(2)} DA)\n`;
   });
 
-  // Construct Markdown telegram message
   const telegramMessage = 
 `🍷 *NEW GOTHIC ORDER RECEIVED* 🍷
 ━━━━━━━━━━━━━━━━━━━━
@@ -127,27 +137,19 @@ ${itemsList}
 ━━━━━━━━━━━━━━━━━━━━
 ⏰ *Time:* ${new Date().toLocaleString()}`;
 
-  // Call Netlify Function endpoint safely
   fetch('/.netlify/functions/send-order', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ message: telegramMessage })
   })
   .then(response => response.json())
   .then(data => {
     if (data.success) {
       alert(`🕯️ Thank you! Your order has been placed successfully.\n\nYour Unique Order ID is: ${orderId}\nPlease keep this ID for reference!`);
-      
-      // Reset cart and form
       cart = [];
       updateCartUI();
       document.getElementById('checkout-form').reset();
-      
-      if (typeof toggleCart === 'function') {
-        toggleCart();
-      }
+      if (typeof toggleCart === 'function') toggleCart();
     } else {
       throw new Error(data.error || 'Failed to process order via backend.');
     }
