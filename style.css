@@ -1,3 +1,7 @@
+/* ==========================================
+   Gothic E-Commerce Store - Clean CSS
+   ========================================== */
+
 :root {
     --bg-main: #0b0a0c;
     --card-bg: #141217;
@@ -148,19 +152,22 @@ body {
     border-color: var(--gold);
 }
 
-/* Modal Cart */
+/* Modal Cart Sidebar */
 .cart-modal {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 350px;
-    height: 100%;
+    width: 380px;
+    max-width: 100%;
+    height: 100vh;
     background-color: var(--card-bg);
     border-left: 1px solid var(--border-color);
-    z-index: 100;
+    z-index: 1000;
     transition: right 0.4s ease;
     padding: 1.5rem;
-    box-shadow: -5px 0 20px rgba(0,0,0,0.8);
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
 }
 
 .cart-modal.active {
@@ -173,33 +180,150 @@ body {
     align-items: center;
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 0.8rem;
+    margin-bottom: 1rem;
 }
 
 .close-btn {
     background: none;
     border: none;
     color: var(--text-muted);
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     cursor: pointer;
+    line-height: 1;
 }
 
+.close-btn:hover {
+    color: var(--accent-red);
+}
+
+/* Scrollable Container Inside Cart */
+.cart-content {
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+    padding-right: 6px;
+}
+
+/* Custom Scrollbar for Cart */
+.cart-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.cart-content::-webkit-scrollbar-track {
+    background: #121015;
+}
+
+.cart-content::-webkit-scrollbar-thumb {
+    background: var(--accent-red);
+    border-radius: 4px;
+}
+
+.cart-content::-webkit-scrollbar-thumb:hover {
+    background: var(--gold);
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    margin: 1rem 0;
+    padding-top: 0.8rem;
+    border-top: 1px dashed var(--border-color);
+    color: var(--gold);
+}
+
+/* Form & Inputs */
 .checkout-form {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
 }
 
 .checkout-form input {
+    width: 100%;
     background-color: #09080b;
     border: 1px solid var(--border-color);
-    padding: 0.6rem;
+    padding: 0.68rem;
     color: var(--text-color);
+    border-radius: 4px;
+    font-family: inherit;
     outline: none;
+    transition: border-color 0.3s;
 }
 
 .checkout-form input:focus {
-    border-color: var(--accent-red);
+    border-color: var(--gold);
+}
+
+.form-group {
+    width: 100%;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--gold);
+    margin-bottom: 4px;
+    font-family: 'Faustina', serif;
+}
+
+/* Gothic Select Menu */
+.gothic-select {
+    width: 100%;
+    padding: 0.68rem;
+    background-color: #09080b;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    border-radius: 4px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.3s;
+    cursor: pointer;
+}
+
+.gothic-select:focus {
+    border-color: var(--gold);
+}
+
+.gothic-select option {
+    background-color: #1a1622;
+    color: var(--text-color);
+}
+
+/* Delivery Options Group */
+.delivery-options-group {
+    margin: 8px 0;
+    padding: 10px;
+    background: rgba(26, 22, 34, 0.6);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+.checkbox-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.custom-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    cursor: pointer;
+    user-select: none;
+    font-family: 'Faustina', serif;
+}
+
+.gothic-radio {
+    accent-color: var(--accent-red);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
 }
 
 /* Footer */
@@ -241,4 +365,26 @@ body {
     padding: 1rem 0;
     color: var(--text-muted);
     font-size: 0.85rem;
+}
+
+/* Gothic Textarea Styling */
+.gothic-textarea {
+    width: 100%;
+    padding: 10px 12px;
+    background-color: #121016;
+    border: 1px solid #2a2430;
+    border-radius: 4px;
+    color: #e0dcd3;
+    font-family: inherit;
+    font-size: 0.9rem;
+    resize: vertical;
+    min-height: 80px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gothic-textarea:focus {
+    outline: none;
+    border-color: #c5a059;
+    box-shadow: 0 0 5px rgba(197, 160, 89, 0.3);
 }
