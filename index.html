@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gothic Sanctuary | Online Store</title>
+    
     <!-- Gothic & Elegant Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cinzel+Decorative:wght@700&family=Faustina:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
@@ -85,20 +87,106 @@
             <!-- Customer Details Form -->
             <form class="checkout-form" id="checkout-form" onsubmit="sendOrderEmail(event)">
                 <h4>Delivery Information</h4>
+                
                 <input type="text" id="customer-name" placeholder="Full Name" required>
                 <input type="tel" id="customer-phone" placeholder="Phone Number" required>
-                <input type="text" id="customer-address" placeholder="Address & City" required>
-                <button type="submit" id="submit-btn" class="btn btn-primary">Send Order</button>
+                
+                <!-- Wilaya Selection -->
+                <div class="form-group">
+                    <label class="form-label" for="customer-wilaya">Select Wilaya</label>
+                    <select id="customer-wilaya" required class="gothic-select">
+                        <option value="" disabled selected>Choose your Wilaya...</option>
+                        <option value="01 - Adrar">01 - Adrar</option>
+                        <option value="02 - Chlef">02 - Chlef</option>
+                        <option value="03 - Laghouat">03 - Laghouat</option>
+                        <option value="04 - Oum El Bouaghi">04 - Oum El Bouaghi</option>
+                        <option value="05 - Batna">05 - Batna</option>
+                        <option value="06 - Béjaïa">06 - Béjaïa</option>
+                        <option value="07 - Biskra">07 - Biskra</option>
+                        <option value="08 - Béchar">08 - Béchar</option>
+                        <option value="09 - Blida">09 - Blida</option>
+                        <option value="10 - Bouira">10 - Bouira</option>
+                        <option value="11 - Tamanrasset">11 - Tamanrasset</option>
+                        <option value="12 - Tébessa">12 - Tébessa</option>
+                        <option value="13 - Tlemcen">13 - Tlemcen</option>
+                        <option value="14 - Tiaret">14 - Tiaret</option>
+                        <option value="15 - Tizi Ouzou">15 - Tizi Ouzou</option>
+                        <option value="16 - Algiers">16 - Algiers</option>
+                        <option value="17 - Djelfa">17 - Djelfa</option>
+                        <option value="18 - Jijel">18 - Jijel</option>
+                        <option value="19 - Sétif">19 - Sétif</option>
+                        <option value="20 - Saïda">20 - Saïda</option>
+                        <option value="21 - Skikda">21 - Skikda</option>
+                        <option value="22 - Sidi Bel Abbès">22 - Sidi Bel Abbès</option>
+                        <option value="23 - Annaba">23 - Annaba</option>
+                        <option value="24 - Guelma">24 - Guelma</option>
+                        <option value="25 - Constantine">25 - Constantine</option>
+                        <option value="26 - Médéa">26 - Médéa</option>
+                        <option value="27 - Mostaganem">27 - Mostaganem</option>
+                        <option value="28 - M'Sila">28 - M'Sila</option>
+                        <option value="29 - Mascara">29 - Mascara</option>
+                        <option value="30 - Ouargla">30 - Ouargla</option>
+                        <option value="31 - Oran">31 - Oran</option>
+                        <option value="32 - El Bayadh">32 - El Bayadh</option>
+                        <option value="33 - Illizi">33 - Illizi</option>
+                        <option value="34 - Bordj Bou Arréridj">34 - Bordj Bou Arréridj</option>
+                        <option value="35 - Boumerdès">35 - Boumerdès</option>
+                        <option value="36 - El Tarf">36 - El Tarf</option>
+                        <option value="37 - Tindouf">37 - Tindouf</option>
+                        <option value="38 - Tissemsilt">38 - Tissemsilt</option>
+                        <option value="39 - El Oued">39 - El Oued</option>
+                        <option value="40 - Khenchela">40 - Khenchela</option>
+                        <option value="41 - Souk Ahras">41 - Souk Ahras</option>
+                        <option value="42 - Tipaza">42 - Tipaza</option>
+                        <option value="43 - Mila">43 - Mila</option>
+                        <option value="44 - Aïn Defla">44 - Aïn Defla</option>
+                        <option value="45 - Naâma">45 - Naâma</option>
+                        <option value="46 - Aïn Témouchent">46 - Aïn Témouchent</option>
+                        <option value="47 - Ghardaïa">47 - Ghardaïa</option>
+                        <option value="48 - Relizane">48 - Relizane</option>
+                        <option value="49 - El M'Ghair">49 - El M'Ghair</option>
+                        <option value="50 - El Meniaa">50 - El Meniaa</option>
+                        <option value="51 - Ouled Djellal">51 - Ouled Djellal</option>
+                        <option value="52 - Bordj Baji Mokhtar">52 - Bordj Baji Mokhtar</option>
+                        <option value="53 - Béni Abbès">53 - Béni Abbès</option>
+                        <option value="54 - Timimoun">54 - Timimoun</option>
+                        <option value="55 - Touggourt">55 - Touggourt</option>
+                        <option value="56 - Djanet">56 - Djanet</option>
+                        <option value="57 - In Salah">57 - In Salah</option>
+                        <option value="58 - In Guezzam">58 - In Guezzam</option>
+                    </select>
+                </div>
+
+                <!-- Home Address Input -->
+                <div class="form-group">
+                    <input type="text" id="customer-address" placeholder="Fill in your home address (Street, House No...)" required>
+                </div>
+
+                <!-- Order Note / Special Instructions (Optional Textarea) -->
+<div class="form-group">
+    <label class="form-label" for="customer-note">Order Note / Special Instructions (Optional)</label>
+    <textarea id="customer-note" class="gothic-textarea" rows="3" placeholder="Add any special notes or instructions for delivery..."></textarea>
+</div>
+
+                <!-- Delivery Option Selection -->
+                <div class="delivery-options-group">
+                    <label class="form-label">Delivery Type:</label>
+                    <div class="checkbox-container">
+                        <label class="custom-checkbox-label">
+                            <input type="radio" name="delivery_type" value="Home Delivery" checked class="gothic-radio">
+                            🏠 Home Delivery
+                        </label>
+                        <label class="custom-checkbox-label">
+                            <input type="radio" name="delivery_type" value="Bureau / Desk" class="gothic-radio">
+                            🏢 Bureau / Desk
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" id="submit-btn" class="btn btn-primary">Send Order via Email ✉️</button>
             </form>
         </div>
     </div>
-
-    <!-- JavaScript for UI interactions -->
-    <script>
-        function toggleCart() {
-            document.getElementById('cart-modal').classList.toggle('active');
-        }
-    </script>
 
     <!-- Footer -->
     <footer class="footer">
@@ -130,5 +218,6 @@
             </div>
         </div>
     </footer>
+
 </body>
 </html>
