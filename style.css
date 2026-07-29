@@ -3,14 +3,14 @@
    ========================================== */
 
 :root {
-    --bg-main: #0b0a0c;
-    --card-bg: #141217;
-    --accent-red: #8b0000;
-    --accent-hover: #b22222;
+    --bg-main: #0a0a0c;
+    --card-bg: #121015;
+    --accent-red: #a71d2a;
+    --accent-hover: #d32f2f;
     --gold: #c5a059;
-    --text-color: #e0dcd3;
-    --text-muted: #9e978e;
-    --border-color: #2a2430;
+    --text-color: #f0ece1;
+    --text-muted: #b0a8a0;
+    --border-color: #26202c;
 }
 
 * {
@@ -22,7 +22,7 @@
 body {
     background-color: var(--bg-main);
     color: var(--text-color);
-    font-family: 'Amiri', serif;
+    font-family: 'Faustina', serif;
     line-height: 1.6;
 }
 
@@ -34,7 +34,7 @@ body {
 
 /* Header */
 .header {
-    background-color: #060507;
+    background-color: #050507;
     border-bottom: 1px solid var(--border-color);
     padding: 1rem 0;
     position: sticky;
@@ -49,7 +49,7 @@ body {
 }
 
 .logo {
-    font-family: 'Cinzel', serif;
+    font-family: 'Cinzel Decorative', 'Cinzel', serif;
     color: var(--gold);
     font-size: 1.6rem;
 }
@@ -59,12 +59,14 @@ body {
     background-color: var(--card-bg);
     padding: 0.5rem 1rem;
     border: 1px solid var(--border-color);
+    border-radius: 6px;
     color: var(--gold);
     transition: 0.3s;
 }
 
 .cart-icon-btn:hover {
     border-color: var(--accent-red);
+    box-shadow: 0 0 8px rgba(167, 29, 42, 0.4);
 }
 
 /* Main & Grid */
@@ -73,10 +75,11 @@ body {
 }
 
 .section-title {
-    font-family: 'Cinzel', serif;
+    font-family: 'Cinzel Decorative', 'Cinzel', serif;
     text-align: center;
     color: var(--gold);
     margin-bottom: 2rem;
+    letter-spacing: 1px;
 }
 
 .products-grid {
@@ -88,33 +91,50 @@ body {
 .product-card {
     background-color: var(--card-bg);
     border: 1px solid var(--border-color);
-    padding: 1.5rem;
+    padding: 1.2rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: transform 0.3s, border-color 0.3s;
-    border-radius: 20px;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 12px;
 }
 
 .product-card:hover {
     transform: translateY(-5px);
     border-color: var(--accent-red);
+    box-shadow: 0 5px 15px rgba(167, 29, 42, 0.25);
 }
 
+/* Fix Product Image Sizing */
 .product-image-placeholder {
-    height: 160px;
-    background-color: #050506;
+    width: 100%;
+    height: 220px;
+    background-color: #050507;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3.5rem;
-    border: 1px dashed var(--border-color);
-    margin-bottom: 1rem;
+}
+
+.product-image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-image-placeholder img {
+    transform: scale(1.04);
 }
 
 .product-title {
+    font-family: 'Cinzel', serif;
     color: var(--text-color);
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     margin-bottom: 0.5rem;
 }
 
@@ -133,23 +153,27 @@ body {
 .product-price {
     color: var(--gold);
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
+    font-family: 'Cinzel', serif;
 }
 
 .btn-primary {
     background-color: var(--accent-red);
     color: #fff;
     border: 1px solid var(--accent-red);
-    padding: 0.5rem 1rem;
+    padding: 0.55rem 1.1rem;
+    border-radius: 6px;
     cursor: pointer;
-    font-family: 'Amiri', serif;
-    transition: 0.3s;
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    transition: 0.3s ease;
 }
 
 .btn-primary:hover {
     background-color: transparent;
     color: var(--gold);
     border-color: var(--gold);
+    box-shadow: 0 0 10px rgba(197, 160, 89, 0.3);
 }
 
 /* Modal Cart Sidebar */
@@ -183,6 +207,11 @@ body {
     margin-bottom: 1rem;
 }
 
+.cart-header h3 {
+    font-family: 'Cinzel', serif;
+    color: var(--gold);
+}
+
 .close-btn {
     background: none;
     border: none;
@@ -209,7 +238,7 @@ body {
 }
 
 .cart-content::-webkit-scrollbar-track {
-    background: #121015;
+    background: #09080b;
 }
 
 .cart-content::-webkit-scrollbar-thumb {
@@ -229,6 +258,7 @@ body {
     padding-top: 0.8rem;
     border-top: 1px dashed var(--border-color);
     color: var(--gold);
+    font-family: 'Cinzel', serif;
 }
 
 /* Form & Inputs */
@@ -239,13 +269,19 @@ body {
     margin-top: 1rem;
 }
 
+.checkout-form h4 {
+    font-family: 'Cinzel', serif;
+    color: var(--gold);
+    margin-bottom: 0.2rem;
+}
+
 .checkout-form input {
     width: 100%;
-    background-color: #09080b;
+    background-color: #08070a;
     border: 1px solid var(--border-color);
     padding: 0.68rem;
     color: var(--text-color);
-    border-radius: 4px;
+    border-radius: 6px;
     font-family: inherit;
     outline: none;
     transition: border-color 0.3s;
@@ -271,10 +307,10 @@ body {
 .gothic-select {
     width: 100%;
     padding: 0.68rem;
-    background-color: #09080b;
+    background-color: #08070a;
     border: 1px solid var(--border-color);
     color: var(--text-color);
-    border-radius: 4px;
+    border-radius: 6px;
     font-size: 0.95rem;
     font-family: inherit;
     outline: none;
@@ -287,17 +323,39 @@ body {
 }
 
 .gothic-select option {
-    background-color: #1a1622;
+    background-color: #121015;
     color: var(--text-color);
+}
+
+/* Gothic Textarea Styling */
+.gothic-textarea {
+    width: 100%;
+    padding: 10px 12px;
+    background-color: #08070a;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 0.9rem;
+    resize: vertical;
+    min-height: 80px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gothic-textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 5px rgba(197, 160, 89, 0.3);
 }
 
 /* Delivery Options Group */
 .delivery-options-group {
     margin: 8px 0;
     padding: 10px;
-    background: rgba(26, 22, 34, 0.6);
+    background: rgba(8, 7, 10, 0.8);
     border: 1px solid var(--border-color);
-    border-radius: 4px;
+    border-radius: 6px;
 }
 
 .checkbox-container {
@@ -316,7 +374,6 @@ body {
     color: var(--text-color);
     cursor: pointer;
     user-select: none;
-    font-family: 'Faustina', serif;
 }
 
 .gothic-radio {
@@ -342,6 +399,7 @@ body {
 }
 
 .footer-brand h3, .footer-links h4, .footer-contact h4 {
+    font-family: 'Cinzel', serif;
     color: var(--gold);
     margin-bottom: 1rem;
 }
@@ -353,6 +411,7 @@ body {
 .footer-links a {
     color: var(--text-muted);
     text-decoration: none;
+    transition: color 0.3s;
 }
 
 .footer-links a:hover {
@@ -365,26 +424,4 @@ body {
     padding: 1rem 0;
     color: var(--text-muted);
     font-size: 0.85rem;
-}
-
-/* Gothic Textarea Styling */
-.gothic-textarea {
-    width: 100%;
-    padding: 10px 12px;
-    background-color: #121016;
-    border: 1px solid #2a2430;
-    border-radius: 4px;
-    color: #e0dcd3;
-    font-family: inherit;
-    font-size: 0.9rem;
-    resize: vertical;
-    min-height: 80px;
-    box-sizing: border-box;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.gothic-textarea:focus {
-    outline: none;
-    border-color: #c5a059;
-    box-shadow: 0 0 5px rgba(197, 160, 89, 0.3);
 }
